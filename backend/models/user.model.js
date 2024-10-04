@@ -34,7 +34,7 @@ const userSchema = new mongoose.Schema({
             default:[]
         }
     ],
-
+    
     profileImg: {
         type: String,
         default: "",
@@ -51,8 +51,16 @@ const userSchema = new mongoose.Schema({
         type:String,
         default: "",
     },
+    likedPost:[
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "Post",
+            default: [],
+        },
+    ],
     
-},{timeStamp:true})
+},
+{timeStamp:true})
 
 const User = mongoose.model("User", userSchema);
 
