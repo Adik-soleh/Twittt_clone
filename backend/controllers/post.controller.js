@@ -31,7 +31,7 @@ export const createPost = async (req, res) => {
         res.status(201).json(newPost);
     } catch (error) {
         res.sttaus(500).json({ error: "Internal server error"});
-        console.log("Error in createPost controller: ", error);
+        console.log("Error pada createPost controller: ", error);
         
     }
 };
@@ -40,7 +40,7 @@ export const deletePost = async (req, res) => {
     try {
         const post = await Post.findById(req.params.id)
         if(!post) {
-            return res.status(404).json({error: "Post not found"})
+            return res.status(404).json({error: "Post tidak di temukan"})
         }
 
         if(post.user.toString( ) !== req.user._id.toString()) {

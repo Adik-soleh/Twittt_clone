@@ -9,21 +9,21 @@ export const signup = async (req, res) => {
 
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         if (!emailRegex.test(email)) {
-            return res.status(400).json({error: "Invalid email format"});
+            return res.status(400).json({error: "Format email salah"});
         }
 
         const existingUser = await User.findOne({username});
         if(existingUser) {
-            return res.status(400).json({ error: "Username is already taken"});
+            return res.status(400).json({ error: "Username sudah di gunakan"});
         }
         
         const existingEmail = await User.findOne({email});
         if(existingEmail) {
-            return res.status(400).json({ error: "Email is already taken"});
+            return res.status(400).json({ error: "Email sudah di gunakan"});
         }
 
         if(password.length < 6) {
-            return res.status(400).json({error: "Password must be at least 6 character long"});
+            return res.status(400).json({error: "Minimal password 6 karakter"});
         }
         // Hash password
         const salt = await bcrypt.genSalt(10);
@@ -70,7 +70,7 @@ export const login = async (req, res) => {
         const isPasswordCorrect = await bcrypt.compare(password, user?.password || "")
 
         if(!user || !isPasswordCorrect) {
-            return res.status(400).json({error: "invaild username or password"})
+            return res.status(400).json({error: "Password atau email salah"})
         }
 
         generateTokenAndSetCookie(user._id, res);
@@ -87,7 +87,7 @@ export const login = async (req, res) => {
         })
 
     } catch (error) {
-        console.log("Error in login controller", error.message);
+        console.log("Error pada login controller", error.message);
         res.status(500).json({ error: "internal server error"})
     }
 };
@@ -96,7 +96,7 @@ export const login = async (req, res) => {
 export const logout = async (req, res) => {
     try {
        res.cookie("jwt","", {maxAge:0})
-       res.status(200).json({message: "logged out succesFully"})
+       res.status(200).json({message: "logged berhasil"})
 
     } catch (error) {
         res.status(500).json({error: "internal server error"})
@@ -109,7 +109,7 @@ export const getMe = async (req, res) => {
         const user = await User.findById(req.user._id).select("-password");
         res.status(200).json(user)
     } catch (error) {
-        console.log("Error in getMe controller", error.message);
+        console.log("Error pada getMe controller", error.message);
         res.status(500).json({error: "Internal server error"});
         
     }

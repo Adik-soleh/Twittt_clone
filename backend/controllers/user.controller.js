@@ -10,11 +10,11 @@ export const getUserProfile = async (req, res) => {
 
     try {
         const user = await User.findOne({username}).select("-password");
-        if(!user) return res.status(404).json({message: "User not found"});
+        if(!user) return res.status(404).json({message: "User tidak di temukan"});
 
         res.status(200).json(user);
     } catch (error) {
-        console.log("Error in getUserProfile: "), error.message;
+        console.log("Error pada getUserProfile: "), error.message;
         
         res.status(500).json({error:error.message});
     }
@@ -30,7 +30,7 @@ export const followUnfollowUser = async (req, res) => {
             return res.status(400).json({error: "you can't follow/unfollow yourself"});
         }
 
-        if(!userToModify || !currentUser) return res.status(404).json({message: "User not found"});
+        if(!userToModify || !currentUser) return res.status(404).json({message: "User tidak di temukan"});
 
         const isfollowing = currentUser.following.includes(id);
 
@@ -39,7 +39,7 @@ export const followUnfollowUser = async (req, res) => {
             await User.findByIdAndUpdate(id, {$pull: { followers: req.user._id } });
             await User.findByIdAndUpdate(req.user._id, {$pull: { following: id } });
             // TODO return user respone 
-            res.status(200).json({ message: "User Unfollowing succesfully"})
+            res.status(200).json({ message: "Unfollowing user berhasil "})
         }else {
             // Follow user
             await User.findByIdAndUpdate(id, { $push: {followers: req.user._id}});
@@ -53,10 +53,10 @@ export const followUnfollowUser = async (req, res) => {
 
             await newNotification.save();
             // TODO return user respone 
-            res.status(200).json({ message: "User followed succesfully"})
+            res.status(200).json({ message: "Followed user berhasil"})
         }
     } catch (error) {
-        console.log("Error in followUnfollowUser: "), error.message;
+        console.log("Error pada followUnfollowUser: "), error.message;
         
         res.status(500).json({error:error.message});  
     }
@@ -85,7 +85,7 @@ export const getSuggestedUsers = async (req, res) => {
 
         res.status(200).json(suggestedUsers);
     } catch (error) {
-        console.log("Error in getSuggestedUsers: "), error.message;
+        console.log("Error pada getSuggestedUsers: "), error.message;
         
         res.status(500).json({error:error.message}); 
     }
@@ -99,17 +99,17 @@ export const updateUser = async (req, res) => {
 
     try {
         let user = await User.findById(userId);
-        if(!user) return res.status(404).json({message: "User not found"});
+        if(!user) return res.status(404).json({message: "User tidak di temukan"});
 
         if((!newPassword && currentPassword) || (!currentPassword && newPassword)) {
-            return res.status(400).json({error: "please provide both current password and new password"});
+            return res.status(400).json({error: "Masukan sandi saat ini dan kata sandi baru"});
         }
 
         if(currentPassword && newPassword) {
             const isMatch = await bcrypt.compare(currentPassword, user.password);
-            if(!isMatch) return res.status(400).json({ error: "Current password is incorrect"});
+            if(!isMatch) return res.status(400).json({ error: "Kata sandi saat ini salah"});
             if(newPassword.length < 6) {
-                return res.status(400).json({ error: "Password must be 6 character long"});
+                return res.status(400).json({ error: "Minimal password 6 karakter"});
             }
 
             const salt = await bcrypt.genSalt(10);
@@ -149,7 +149,7 @@ export const updateUser = async (req, res) => {
         return res.status(200).json(user);
 
     } catch (error) {
-        console.log("error in upfate: ", error.message);
+        console.log("error pada update: ", error.message);
         res.status(500).json({error: error.message})
         
     }
