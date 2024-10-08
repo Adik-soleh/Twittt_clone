@@ -177,4 +177,53 @@ export const getLikesPost = async (req, res) => {
         console.log("Terdapat eeror di controller getLikesPost: ", error);
         res.status(500).json({ error: "Server internal error :("})
     }
+};
+
+export const getFollowingPost = async (req, res) => {
+    try {
+        const userId = req.user._id;
+        const user = await User.findById(userId);
+        if(!user) return res.status(400).json({ error: "User tidak di temukan"});
+
+        const following = user.following;
+
+        const feadPost = await Post.find({ user: { $in: following} })
+            .sort({ createdAt: -1})
+            .populate({
+                path: "user",
+                select: "-password",
+            })
+            .populate({
+                path: "comments.user",
+                select: "-password",
+            });
+            
+            res.status(200).json(feadPost);
+    } catch (error) {
+        console.log("Terdapat eeror di controller getfollowingPost: ", error);
+        res.status(500).json({ error: "Server internal error :("})
+    }
+};
+
+export const getUserPost = async (req, res) => {
+    try {
+        const { username } = req.params;
+
+        const user = await User.findOne({ username });
+        if(!user) return res.status(400).json({ error: "User tidak di temukan"});
+
+        const post = await Post.find({ user: user._id}).sort({ createdAt: -1}).populate({
+            path: "user",
+            select: "-password",
+        })
+        .populate({
+            path: "comments.user",
+            select: "-password",
+        });
+
+        res.status(200).json(post)
+    } catch (error) {
+        console.log("Terdapat eeror di controller getuserPost: ", error);
+        res.status(500).json({ error: "Server internal error :("})
+    }
 }
