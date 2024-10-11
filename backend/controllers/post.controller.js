@@ -130,7 +130,7 @@ export const likeUnlikePost = async (req, res) => {
     }
 };
 
-export const getAllPost = async (req, res) => {
+export const getAllPosts = async (req, res) => {
     try {
         const post = await Post.find().sort({ createAt: -1}).populate({
             path: "user",
@@ -147,7 +147,7 @@ export const getAllPost = async (req, res) => {
 
         res.status(200).json(post);
     } catch (error) {
-        console.log("Terdapat eeror di controller getAllpost: ", error);
+        console.log("Terdapat eeror di controller s: ", error);
         res.status(500).json({ error: "Server internal error :("})
         
     }
@@ -179,7 +179,7 @@ export const getLikesPost = async (req, res) => {
     }
 };
 
-export const getFollowingPost = async (req, res) => {
+export const getFollowingPosts = async (req, res) => {
     try {
         const userId = req.user._id;
         const user = await User.findById(userId);
@@ -205,7 +205,7 @@ export const getFollowingPost = async (req, res) => {
     }
 };
 
-export const getUserPost = async (req, res) => {
+export const getUserPosts = async (req, res) => {
     try {
         const { username } = req.params;
 

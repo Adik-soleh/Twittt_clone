@@ -97,7 +97,7 @@ export const USERS_FOR_RIGHT_PANEL = [
 	},
 	{
 		_id: "2",
-		fullName: "Opin",
+		fullName: "Apin",
 		username: "opet",
 		profileImg: "/avatars/girl1.png",
 	},

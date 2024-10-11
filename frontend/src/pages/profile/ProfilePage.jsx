@@ -26,13 +26,13 @@ const ProfilePage = () => {
 
 	const user = {
 		_id: "1",
-		fullName: "John Doe",
-		username: "johndoe",
-		profileImg: "/avatars/boy2.png",
-		coverImg: "/cover.png",
-		bio: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-		link: "https://youtube.com/@asaprogrammer_",
-		following: ["1", "2", "3"],
+		fullName: "Adik Soleh",
+		username: "solehganteng",
+		profileImg: "/posts/ayang1.JPG",
+		coverImg: "/ayang1.JPG",
+		bio: "Harus tetap hidup !!",
+		link: "https://youtube.com/@solehGG",
+		following: ["1", "2", "3", ],
 		followers: ["1", "2", "3"],
 	};
 
@@ -149,14 +149,14 @@ const ProfilePage = () => {
 													rel='noreferrer'
 													className='text-sm text-blue-500 hover:underline'
 												>
-													youtube.com/@asaprogrammer_
+													youtube.com/@solehGG_
 												</a>
 											</>
 										</div>
 									)}
 									<div className='flex gap-2 items-center'>
 										<IoCalendarOutline className='w-4 h-4 text-slate-500' />
-										<span className='text-sm text-slate-500'>Joined July 2021</span>
+										<span className='text-sm text-slate-500'>Joined october 2024</span>
 									</div>
 								</div>
 								<div className='flex gap-2'>
