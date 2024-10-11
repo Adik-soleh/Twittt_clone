@@ -20,8 +20,8 @@ export const formatPostDate = (createdAt) => {
 	}
 };
 
-export const formatMemberSinceDate = (createdAt) => {
-	const date = new Date(createdAt);
+export const formatMemberSinceDate = () => {
+	const date = new Date();
 	const months = [
 		"January",
 		"February",
@@ -36,7 +36,8 @@ export const formatMemberSinceDate = (createdAt) => {
 		"November",
 		"December",
 	];
-	const month = months[date.getMonth()];
-	const year = date.getFullYear();
+	let month = months[date.getMonth()];
+	let year = date.getFullYear();
 	return `Joined ${month} ${year}`;
+	
 };
