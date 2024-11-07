@@ -4,9 +4,9 @@
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
-    "vercel-build": "npm run build && npm install && npm install --prefix frontend && npm run build --prefix frontend",
+    "vercel-build": "npm install --prefix frontend && npm run build --prefix frontend",
     "dev": "cross-env NODE_ENV=production node index.js",
-    "build": "npm install && npm install --prefix frontend && npm run build --prefix frontend"
+    "build": "npm install --prefix frontend && npm run build --prefix frontend"
   },
   "keywords": [],
   "author": "",
@@ -21,11 +21,13 @@
     "dotenv": "^16.4.5",
     "express": "^4.21.1",
     "jsonwebtoken": "^9.0.2",
-    "mongoose": "^8.7.1",
-    "mongose": "^0.0.2-security"
+    "mongoose": "^8.7.1"
   },
   "devDependencies": {
     "cross-env": "^7.0.3",
     "nodemon": "^3.1.7"
+  },
+  "engines": {
+    "node": ">=14.x"
   }
 }
