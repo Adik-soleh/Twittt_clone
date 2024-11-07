@@ -1,10 +1,11 @@
 {
   "name": "twitt_clone",
   "version": "1.0.0",
-  "main": "backend/server.js",
+  "main": "index.js",
   "scripts": {
-      "start": "cross-env NODE_ENV=production node backend/server.js",
-    "dev": "cross-env NODE_ENV=development nodemon backend/server.js",
+    "start": "node index.js",
+    "vercel-build": "npm run build && npm install && npm install --prefix frontend && npm run build --prefix frontend",
+    "dev": "cross-env NODE_ENV=production node index.js",
     "build": "npm install && npm install --prefix frontend && npm run build --prefix frontend"
   },
   "keywords": [],
